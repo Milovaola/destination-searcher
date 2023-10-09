@@ -6,11 +6,11 @@ import {
 import { QueryClientProvider, QueryClient } from 'react-query'
 import { SearchDestinationPage } from './main-page'
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouterProvider,
 } from 'react-router-dom'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <SearchDestinationPage />,
