@@ -1,59 +1,52 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+# Travel Destination Searcher
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+Travel Destination Searcher is a React application designed to assist users in searching for travel destinations and
+exploring details about them. The application allows users to search for destinations by name and view detailed
+information about the selected destination and top 5 nearby destinations.
 
-### `npm start`
+[Live Demo](#)
 
-Runs the app in the development mode.<br /> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies
 
-The page will reload if you make edits.<br /> You will also see any lint errors
-in the console.
+- **React:** For building the user interface.
+- **TypeScript:** For static type-checking.
+- **Chakra UI:** For designing the UI components.
+- **React Query:** For managing asynchronous state and performing API queries.
+- **Prettier:** For code formatting.
 
-### `npm test`
+## Design Decisions & Implementation Details
 
-Launches the test runner in the interactive watch mode.<br /> See the section
-about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
-for more information.
+1. **Fake API**
+   The fake-api.ts file exports asynchronous functions that mimic API calls by filtering the provided data based on user
+   input and resolving the promise with matched data.
+   When the user searches for ‘fail’, the function rejects the promise to simulate an error.
+2. **Destination Recommendation Algorithm**
+   Algorithm calculates nearby destinations based on geographical proximity (latitude and longitude).
+3. **Error Handling**
+   Implemented error handling for API requests to manage error states gracefully and display an error message near the
+   combobox when needed.
+4. **Loading State**
+   Loading indicators are displayed during data fetching to enhance the UX.
+5. **Accessibility**
+   Ensured that the combobox and all interactive elements are keyboard accessible and comply with accessibility
+   guidelines.
 
-### `npm run build`
+### Destination Search
 
-Builds the app for production to the `build` folder.<br /> It correctly bundles
-React in production mode and optimizes the build for the best performance.
+- Asynchronous combobox to fetch and display matching destination names from a fake API.
+- A fake API is utilized to mimic the process of querying a real API.
 
-The build is minified and the filenames include the hashes.<br /> Your app is
-ready to be deployed!
+### Destination Details
 
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
+- Displays detailed information about the selected destination, including name, description, and top 5 nearby
+  destinations.
 
-### `npm run eject`
+## Features
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can
-`eject` at any time. This command will remove the single build dependency from
-your project.
-
-Instead, it will copy all the configuration files and the transitive
-dependencies (webpack, Babel, ESLint, etc) right into your project so you have
-full control over them. All of the commands except `eject` will still work, but
-they will point to the copied scripts so you can tweak them. At this point
-you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for
-small and middle deployments, and you shouldn’t feel obligated to use this
-feature. However we understand that this tool wouldn’t be useful if you couldn’t
-customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Client-side Caching**: Using React Query to cache the results of the fake API requests.
+- **Debounce User Input**: Debounce implemented to minimize API calls during user input.
+- **Accessible UI**: Chakra UI provides a set of accessible and reusable UI components that follow the WAI-ARIA
+  standards.
+- **Deep Link**: Facilitated deep linking to enable users to share specific states of the application through URLs.
