@@ -1,5 +1,6 @@
 {
   "name": "mozio-test",
+  "homepage": "https://milovaola.github.io/destination-searcher/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
