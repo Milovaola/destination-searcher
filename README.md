@@ -6,7 +6,7 @@ Travel Destination Searcher is a React application designed to assist users in s
 exploring details about them. The application allows users to search for destinations by name and view detailed
 information about the selected destination and top 5 nearby destinations.
 
-[Live Demo](#)
+[Live Demo](https://milovaola.github.io/destination-searcher/)
 
 ## Technologies
 
