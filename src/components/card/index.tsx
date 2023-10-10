@@ -1,33 +1,98 @@
-import React from 'react'
-import {
-  Text,
-  Heading,
-  Card,
-  CardBody,
-} from '@chakra-ui/react'
+import React, { useCallback, useMemo, useState } from 'react'
+import { Text, Heading, Card, CardBody, Box, Flex } from '@chakra-ui/react'
 import { DestinationEntity } from '../../interfaces'
-import { NearbyDestination } from './nearby-destination'
-import { Details } from './details'
+import { useDestinationList } from '../../fake-api'
+import { getNearbyDestinations } from '../../utils'
+import { Spinner } from '../spinner'
 
-interface CardProps {
-  card: DestinationEntity;
-  nearbyDestinations: DestinationEntity[]
+interface DestinationCardProps {
+  destination: DestinationEntity
+  onChangeDestination: (
+    event: React.MouseEvent<HTMLDivElement>,
+    destination: DestinationEntity
+  ) => void
 }
 
-export const DestinationCard: React.FC<CardProps> = ({ card, nearbyDestinations }) =>
-  <Card>
-    <CardBody>
-      <Heading size='md' pb={4} textTransform='uppercase'>
-        {card.name}
-      </Heading>
-      <Details {...card} />
-      <Text as='b' fontSize='md'>
-        Nearby destinations:
-      </Text>
-      {nearbyDestinations.map((item, idx) => <NearbyDestination key={idx} {...item} />,
-      )}
-    </CardBody>
-  </Card>
+export const DestinationCard: React.FC<DestinationCardProps> = ({
+  destination,
+  onChangeDestination,
+}) => {
+  const { description, climate, currency, name } = destination
 
+  const { data = [] } = useDestinationList()
+
+  const [showLoader, setShowLoader] = useState(false)
+
+  /** Get a list of nearby destinations. */
+  const list = useMemo(
+    () => getNearbyDestinations(data, destination),
+    [data, destination]
+  )
+
+  /** This callback use for change of the destination. */
+  const handleChangeDestination = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>, item: DestinationEntity) => {
+      setShowLoader(true)
+      setTimeout(() => {
+        onChangeDestination(event, item)
+
+        setShowLoader(false)
+      }, 1000)
+    },
+    [setShowLoader, onChangeDestination]
+  )
+
+  return (
+    <Card>
+      <CardBody>
+        <Heading size="md" pb={4} textTransform="uppercase">
+          {name}
+        </Heading>
+        <Box>
+          <Text as="i" fontSize="md">
+            {description}
+          </Text>
+          <Box py="6">
+            <Flex gap={2}>
+              <Text as="b" fontSize="md">
+                Climate:
+              </Text>
+              <Text fontSize="md">{climate}</Text>
+            </Flex>
+            <Flex gap={2}>
+              <Text as="b" fontSize="md">
+                Currency:
+              </Text>
+              <Text fontSize="md">{currency}</Text>
+            </Flex>
+          </Box>
+        </Box>
+        <Text as="b" fontSize="md">
+          Nearby destinations:
+        </Text>
+        <Box mt={2}>
+          {showLoader ? (
+            <Spinner />
+          ) : (
+            list.map((item, idx) => (
+              <Box
+                as="button"
+                display={'block'}
+                key={idx}
+                _hover={{ color: 'blue.300' }}
+                _active={{ color: 'blue.600' }}
+                fontSize="md"
+                p={1}
+                onClick={(e) => handleChangeDestination(e, item)}
+              >
+                {item.name}
+              </Box>
+            ))
+          )}
+        </Box>
+      </CardBody>
+    </Card>
+  )
+}
 
 DestinationCard.displayName = 'DestinationCard'

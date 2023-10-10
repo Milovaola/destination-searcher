@@ -1,8 +1,8 @@
 export interface DestinationEntity {
-  id: number;
-  name: string;
-  description: string;
-  country: string;
+  id: number
+  name: string
+  description: string
+  country: string
   climate: string
   currency: string
   latitude: number
@@ -10,6 +10,12 @@ export interface DestinationEntity {
 }
 
 export interface ServerError {
-  code: number;
-  message: string;
+  code: number
+  message: string
+}
+
+export interface Option<T> {
+  value: number
+  label: string
+  item: T
 }
